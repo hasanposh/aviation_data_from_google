@@ -1,0 +1,254 @@
+const { chromium } = require("playwright-extra");
+const stealth = require("puppeteer-extra-plugin-stealth")();
+const fs = require("fs");
+
+chromium.use(stealth);
+
+const FILE_NAME = "aviation_results.json";
+const CONCURRENCY_LIMIT = 3; // Number of parallel browsers to run
+
+// ===== BACKUP FILE BEFORE ANYTHING =====
+if (fs.existsSync(FILE_NAME)) {
+  try {
+    fs.copyFileSync(FILE_NAME, FILE_NAME + ".backup");
+    console.log("Backup created.");
+  } catch (e) {
+    console.log("Backup failed:", e.message);
+  }
+}
+const AIRPORTS = []
+const KEYWORDS = [];
+// Helper to split tasks into parallel chunks
+const chunkArray = (arr, size) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+    arr.slice(i * size, i * size + size),
+  );
+
+async function scrapeGoogleMaps() {
+  const userAgents = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  ];
+
+  // OPTIMIZATION 1: True Headless Mode Enabled
+  const browser = await chromium.launch({
+    headless: true,
+    args: ["--disable-blink-features=AutomationControlled"],
+  });
+
+  let allData = {};
+  const seenEntries = new Set();
+
+  // ===== SAFE LOAD =====
+  if (fs.existsSync(FILE_NAME)) {
+    console.log("Loading progress...");
+    try {
+      const rawData = fs.readFileSync(FILE_NAME, "utf8");
+      if (!rawData || rawData.trim().length === 0)
+        throw new Error("Empty file");
+
+      const parsed = JSON.parse(rawData);
+      if (typeof parsed !== "object" || Array.isArray(parsed))
+        throw new Error("Invalid structure");
+
+      allData = parsed;
+
+      for (const air in allData) {
+        for (const keyw in allData[air]) {
+          (allData[air][keyw] || []).forEach((e) => {
+            if (e) seenEntries.add(createEntryKey(e));
+          });
+        }
+      }
+      console.log(`Resuming: ${seenEntries.size} unique leads already found.`);
+    } catch (err) {
+      console.error("❌ Main file corrupted. Trying backup...");
+      try {
+        const backupRaw = fs.readFileSync(FILE_NAME + ".backup", "utf8");
+        allData = JSON.parse(backupRaw);
+        console.log("✅ Recovery successful from backup.");
+      } catch {
+        console.log("❌ No valid backup. Starting fresh.");
+        allData = {};
+      }
+    }
+  }
+
+  // Flatten queries for parallel execution
+  const allQueries = [];
+  for (const airport of AIRPORTS) {
+    if (!allData[airport.name]) allData[airport.name] = {};
+    for (const keyword of KEYWORDS) {
+      if (!allData[airport.name][keyword]) {
+        allQueries.push({ airport: airport.name, keyword });
+      }
+    }
+  }
+
+  console.log(`\nFound ${allQueries.length} pending search queries.`);
+
+  // OPTIMIZATION 2: Managed Concurrency (Parallel Workers)
+  const queryChunks = chunkArray(allQueries, CONCURRENCY_LIMIT);
+
+  for (let i = 0; i < queryChunks.length; i++) {
+    console.log(`\n--- Starting Batch ${i + 1} of ${queryChunks.length} ---`);
+    const chunk = queryChunks[i];
+
+    await Promise.all(
+      chunk.map(async ({ airport, keyword }) => {
+        const context = await browser.newContext({
+          userAgent: userAgents[Math.floor(Math.random() * userAgents.length)],
+          viewport: { width: 1366, height: 768 },
+        });
+
+        const page = await context.newPage();
+
+        // OPTIMIZATION 3: Block Unnecessary Resources
+        await page.route("**/*", (route) => {
+          const resourceType = route.request().resourceType();
+          if (["image", "stylesheet", "font", "media"].includes(resourceType)) {
+            route.abort();
+          } else {
+            route.continue();
+          }
+        });
+
+        const fullQuery = `${keyword} ${airport}`;
+
+        // OPTIMIZATION 4: Fixed String Interpolation Syntax
+        const searchUrl = `https://www.google.com/maps/search/$${encodeURIComponent(fullQuery)}?hl=en`;
+
+        console.log(`[SEARCHING]: ${fullQuery}`);
+        let results = [];
+
+        try {
+          await page.goto("https://www.google.com/maps", {
+            waitUntil: "domcontentloaded",
+          });
+          await page.waitForTimeout(1000 + Math.random() * 1000);
+          await page.goto(searchUrl, { waitUntil: "domcontentloaded" });
+
+          const found = await page
+            .waitForSelector('.qBF1Pd, .DUwDvf, iframe[src*="recaptcha"]', {
+              timeout: 15000,
+            })
+            .catch(() => null);
+
+          if (await page.$('iframe[src*="recaptcha"]')) {
+            console.log(`!!! CAPTCHA DETECTED on ${fullQuery} !!!`);
+            // Note: In true headless mode, manual solving isn't possible.
+            // You may need to gracefully close this page and try later.
+          }
+
+          if (!found) {
+            console.log(`No results for: ${fullQuery}`);
+            allData[airport][keyword] = [];
+          } else {
+            const isSingle = await page.$(".DUwDvf");
+
+            if (isSingle) {
+              const details = await extractDetails(page);
+              const entryKey = createEntryKey(details);
+              if (!seenEntries.has(entryKey)) {
+                seenEntries.add(entryKey);
+                results.push(details);
+              }
+            } else {
+              const resultSelectors = ".hfpxzc";
+
+              await page.evaluate(() => {
+                const menu = document.querySelector('[role="feed"]');
+                if (menu) menu.scrollBy(0, 1500);
+              });
+              await page.waitForTimeout(1500);
+
+              const listings = await page.$$(resultSelectors);
+              const limit = Math.min(listings.length, 10);
+
+              for (let i = 0; i < limit; i++) {
+                try {
+                  const items = await page.$$(resultSelectors);
+                  await items[i].click();
+                  await page.waitForSelector(".DUwDvf", { timeout: 5000 });
+
+                  const details = await extractDetails(page);
+                  const entryKey = createEntryKey(details);
+
+                  if (!seenEntries.has(entryKey)) {
+                    seenEntries.add(entryKey);
+                    results.push(details);
+                  }
+                } catch (e) {
+                  // Ignore timeouts on bad cards
+                }
+              }
+            }
+
+            allData[airport][keyword] = results;
+            console.log(
+              `Finished [${fullQuery}]: Found ${results.length} new leads.`,
+            );
+          }
+        } catch (err) {
+          console.error(`Error on [${fullQuery}]: ${err.message}`);
+        }
+
+        await page.close();
+        await context.close();
+      }),
+    );
+
+    // Save data AFTER the parallel chunk finishes to prevent file write collisions
+    saveData(allData);
+  }
+
+  await browser.close();
+  console.log("\n✅ Scraping complete!");
+}
+
+// ===== SAFE SAVE =====
+function saveData(data) {
+  if (!data || typeof data !== "object") {
+    console.log("❌ Invalid data — skipping save");
+    return;
+  }
+
+  const tempFile = FILE_NAME + ".tmp";
+
+  try {
+    fs.writeFileSync(tempFile, JSON.stringify(data, null, 2), "utf8");
+    JSON.parse(fs.readFileSync(tempFile, "utf8")); // Validate temp file
+    fs.renameSync(tempFile, FILE_NAME);
+  } catch (err) {
+    console.log("❌ Save failed, file not replaced:", err.message);
+  }
+}
+
+function createEntryKey(details) {
+  const namePart = (details?.name || "noname")
+    .toLowerCase()
+    .replace(/\s+/g, "");
+  const phonePart = (details?.phone || "nophone").replace(/\D/g, "");
+  return `${namePart}-${phonePart}`;
+}
+
+async function extractDetails(page) {
+  return await page.evaluate(() => {
+    const getText = (sel) =>
+      document.querySelector(sel)?.innerText?.trim() || null;
+    const getHref = (sel) =>
+      document.querySelector(sel)?.getAttribute("href") || null;
+
+    return {
+      name: getText(".DUwDvf"),
+      website: getHref('a[data-item-id="authority"]'),
+      phone: getText('button[data-item-id^="phone:tel:"]'),
+    };
+  });
+}
+
+scrapeGoogleMaps();
+
+
+this was my previous code where i had several features like i can start from the same place where i started
+i had a aviation_results.json.backup file where i can strore my data. but in my current file i dont have these feature and this code is slow but my previuse one was fast

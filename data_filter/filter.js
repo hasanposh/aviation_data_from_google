@@ -3,7 +3,7 @@ const path = require("path");
 
 // Path to your JSON file
 // const inputPath = path.join(__dirname, "../aviation_results.json");
-const inputPath = path.join(__dirname, "../../../Clients/Aviation company - roger-vasquez/Aviation company/USA/Florida.json");
+const inputPath = path.join(__dirname, "../../../Clients/Aviation company - roger-vasquez/Aviation company/USA/California.json");
 // const inputPath = path.join(__dirname, "./cleaned_aviation_results.json");
 const outputPath = path.join(__dirname, "./cleaned_aviation_results.json");
 
