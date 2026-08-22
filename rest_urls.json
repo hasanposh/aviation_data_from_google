@@ -1,0 +1,19 @@
+127.0.0.1/motorscan/urls/		http://localhost/phpmyadmin/index.php?route=/table/search&db=motorscan&table=urls
+
+   Showing rows 0 -  0 (1 total, Query took 1.1546 seconds.)
+
+
+SELECT CONCAT(
+  '[', 
+  GROUP_CONCAT(
+    CONCAT('"', REPLACE(`url`, '"', '\\"'), '"')
+    SEPARATOR ','
+  ),
+  ']'
+) AS urls
+FROM `urls`
+WHERE `status` IS NULL;
+
+
+
+["https://motorscan.co.uk/reg-check/AR51F","https:...	

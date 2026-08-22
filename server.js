@@ -30,317 +30,420 @@ if (fs.existsSync(FILE_NAME)) {
 }
 
 const AIRPORTS = [
-  {"name": "Albuquerque International Sunport", "code": "ABQ"},
-  {"name": "Lea County Regional Airport", "code": "HOB"},
-  {"name": "Roswell Air Center", "code": "ROW"},
-  {"name": "Santa Fe Municipal Airport", "code": "SAF"},
-  {"name": "Cavern City Air Terminal", "code": "CNM"},
-  {"name": "Clovis Regional Airport", "code": "CVN"},
-  {"name": "Grant County Airport", "code": "SVC"},
-  {"name": "Double Eagle II Airport", "code": "AEG"},
-  {"name": "Alamogordo-White Sands Regional Airport", "code": "ALM"},
-  {"name": "Angel Fire Airport", "code": "AXX"},
-  {"name": "Artesia Municipal Airport", "code": "ATS"},
-  {"name": "Aztec Municipal Airport", "code": "N19"},
-  {"name": "Belen Regional Airport", "code": "BRG"},
-  {"name": "Carrizozo Municipal Airport", "code": "F37"},
-  {"name": "Clayton Municipal Airpark", "code": "CAO"},
-  {"name": "Conchas Lake Airport", "code": "E89"},
-  {"name": "Crownpoint Airport", "code": "0E8"},
-  {"name": "Deming Municipal Airport", "code": "DMN"},
-  {"name": "Jicarilla Apache Nation Airport", "code": "24N"},
-  {"name": "Ohkay Owingeh Airport", "code": "E14"},
-  {"name": "Four Corners Regional Airport", "code": "FMN"},
-  {"name": "Fort Sumner Municipal Airport", "code": "FSU"},
-  {"name": "Gallup Municipal Airport", "code": "GUP"},
-  {"name": "Glenwood Airport", "code": "E94"},
-  {"name": "Grants-Milan Municipal Airport", "code": "GNT"},
-  {"name": "Hatch Municipal Airport", "code": "E05"},
-  {"name": "Lea County-Jal Airport", "code": "E26"},
-  {"name": "Las Cruces International Airport", "code": "LRU"},
-  {"name": "Las Vegas Municipal Airport", "code": "LVS"},
-  {"name": "Lordsburg Municipal Airport", "code": "LSB"},
-  {"name": "Los Alamos County Airport", "code": "LAM"},
-  {"name": "Lea County-Zip Franklin Memorial Airport", "code": "E06"},
-  {"name": "Magdalena Airport", "code": "N29"},
-  {"name": "Moriarty Municipal Airport", "code": "0E0"},
-  {"name": "Navajo Lake Airport", "code": "1V0"},
-  {"name": "Portales Municipal Airport", "code": "PRZ"},
-  {"name": "Questa Municipal Nr 2 Airport", "code": "N24"},
-  {"name": "Raton Municipal Airport (Crews Field)", "code": "RTN"},
-  {"name": "Reserve Airport", "code": "T16"},
-  {"name": "Sierra Blanca Regional Airport", "code": "SRR"},
-  {"name": "Santa Rosa Route 66 Airport", "code": "SXU"},
-  {"name": "Doña Ana County International Jetport", "code": "DNA"},
-  {"name": "Shiprock Airstrip", "code": "5V5"},
-  {"name": "Socorro Municipal Airport", "code": "ONM"},
-  {"name": "Springer Municipal Airport", "code": "S42"},
-  {"name": "Taos Regional Airport", "code": "SKX"},
-  {"name": "Truth or Consequences Municipal Airport", "code": "TCS"},
-  {"name": "Tucumcari Municipal Airport", "code": "TCC"},
-  {"name": "Vaughn Municipal Airport", "code": "N17"},
-  {"name": "Andrew Othole Memorial Airport", "code": "XNI"},
-  {"name": "Jewett Mesa Airport", "code": "13Q"},
-  {"name": "Conchas Lake Seaplane Base", "code": "E61"},
-  {"name": "Sandia Airpark Estates East Airport", "code": "1N1"},
-  {"name": "Estancia Municipal Airport", "code": "E92"},
-  {"name": "Lindrith Airpark", "code": "E32"},
-  {"name": "Mid Valley Airpark", "code": "E98"},
-  {"name": "Mountainair Municipal Airport", "code": "M10"},
-  {"name": "Whiskey Creek Airport", "code": "94E"},
-  {"name": "Tatum Airport", "code": "18T"},
-  {"name": "Holloman Air Force Base", "code": "HMN"},
-  {"name": "Cannon Air Force Base", "code": "CVS"},
-  {"name": "Stallion Army Airfield", "code": "95E"},
-  {"name": "Condron Army Airfield", "code": "WSD"},
-  {"name": "Columbus Municipal Airport", "code": "0NM0"},
-  {"name": "Industrial Airpark", "code": "NM83"},
-  {"name": "Spaceport America", "code": "90NM"}
+  {"name": "Akron–Canton Airport", "code": "CAK"},
+  {"name": "Cleveland Hopkins International Airport", "code": "CLE"},
+  {"name": "John Glenn Columbus International Airport", "code": "CMH"},
+  {"name": "Rickenbacker International Airport", "code": "LCK"},
+  {"name": "James M. Cox Dayton International Airport", "code": "DAY"},
+  {"name": "Eugene F. Kranz Toledo Express Airport", "code": "TOL"},
+  {"name": "Cuyahoga County Airport (Robert D. Shea Field)", "code": "CGF"},
+  {"name": "Bolton Field", "code": "TZR"},
+  {"name": "Ohio State University Airport", "code": "OSU"},
+  {"name": "Dayton-Wright Brothers Airport", "code": "MGY"},
+  {"name": "Butler County Regional Airport (Hogan Field)", "code": "HAO"},
+  {"name": "Lorain County Regional Airport", "code": "LPR"},
+  {"name": "Medina Municipal Airport", "code": "1G5"},
+  {"name": "Lake County Executive Airport", "code": "LNN"},
+  {"name": "Akron Fulton International Airport", "code": "AKR"},
+  {"name": "Barber Airport", "code": "2D1"},
+  {"name": "Ashland County Airport", "code": "3G4"},
+  {"name": "Northeast Ohio Regional Airport", "code": "HZY"},
+  {"name": "Ohio University Airport (Snyder Field)", "code": "UNI"},
+  {"name": "Barnesville-Bradfield Airport", "code": "6G5"},
+  {"name": "Clermont County Airport", "code": "I69"},
+  {"name": "Bellefontaine Regional Airport", "code": "EDJ"},
+  {"name": "Bluffton Airport", "code": "5G7"},
+  {"name": "Wood County Airport", "code": "1G0"},
+  {"name": "Williams County Airport", "code": "0G6"},
+  {"name": "Port Bucyrus-Crawford County Airport", "code": "17G"},
+  {"name": "Harrison County Airport", "code": "8G6"},
+  {"name": "Cambridge Municipal Airport", "code": "CDI"},
+  {"name": "Carroll County-Tolson Airport", "code": "TSO"},
+  {"name": "Lakefield Airport", "code": "CQA"},
+  {"name": "Lawrence County Airpark", "code": "HTW"},
+  {"name": "Ross County Airport", "code": "RZT"},
+  {"name": "Cincinnati Municipal Airport (Lunken Field)", "code": "LUK"},
+  {"name": "Pickaway County Memorial Airport", "code": "CYO"},
+  {"name": "Burke Lakefront Airport", "code": "BKL"},
+  {"name": "Richard Downing Airport", "code": "I40"},
+  {"name": "Greene County-Lewis A. Jackson Regional Airport", "code": "I19"},
+  {"name": "Defiance Memorial Airport", "code": "DFI"},
+  {"name": "Delaware Municipal Airport (Jim Moore Field)", "code": "DLZ"},
+  {"name": "Columbiana County Airport", "code": "02G"},
+  {"name": "Findlay Airport", "code": "FDY"},
+  {"name": "Fostoria Metropolitan Airport", "code": "FZI"},
+  {"name": "Sandusky County Regional Airport", "code": "S24"},
+  {"name": "Galion Municipal Airport", "code": "GQQ"},
+  {"name": "Gallia-Meigs Regional Airport", "code": "GAS"},
+  {"name": "Brown County Airport", "code": "GEO"},
+  {"name": "Cincinnati West Airport", "code": "I67"},
+  {"name": "Highland County Airport", "code": "HOC"},
+  {"name": "James A. Rhodes Airport", "code": "I43"},
+  {"name": "Kelleys Island Land Field", "code": "89D"},
+  {"name": "Kent State University Airport", "code": "1G3"},
+  {"name": "Hardin County Airport", "code": "I95"},
+  {"name": "Fairfield County Airport", "code": "LHQ"},
+  {"name": "Warren County Airport (John Lane Field)", "code": "I68"},
+  {"name": "Lima Allen County Airport", "code": "AOH"},
+  {"name": "Madison County Airport", "code": "UYF"},
+  {"name": "Mansfield Lahm Regional Airport", "code": "MFD"},
+  {"name": "Marion Municipal Airport", "code": "MNN"},
+  {"name": "Union County Airport", "code": "MRT"},
+  {"name": "Vinton County Airport", "code": "22I"},
+  {"name": "Middle Bass Island Airport", "code": "3T7"},
+  {"name": "Geauga County Airport", "code": "7G8"},
+  {"name": "Middletown Regional Airport (Hook Field)", "code": "MWO"},
+  {"name": "Holmes County Airport", "code": "10G"},
+  {"name": "Morrow County Airport", "code": "4I9"},
+  {"name": "Knox County Airport", "code": "4I3"},
+  {"name": "Henry County Airport", "code": "7W5"},
+  {"name": "Perry County Airport", "code": "I86"},
+  {"name": "Harry Clever Field", "code": "PHD"},
+  {"name": "Newark-Heath Airport", "code": "VTA"},
+  {"name": "North Bass Island Airport", "code": "3X5"},
+  {"name": "Norwalk-Huron County Airport", "code": "5A1"},
+  {"name": "Putnam County Airport", "code": "OWX"},
+  {"name": "Miami University Airport", "code": "OXD"},
+  {"name": "Erie-Ottawa International Airport (Carl R. Keller Field)", "code": "PCW"},
+  {"name": "Greater Portsmouth Regional Airport", "code": "PMH"},
+  {"name": "Put-in-Bay Airport", "code": "3W2"},
+  {"name": "Portage County Airport", "code": "POV"},
+  {"name": "Sidney Municipal Airport", "code": "SCA"},
+  {"name": "Springfield-Beckley Municipal Airport", "code": "SGH"},
+  {"name": "Geary A. Bates/Jefferson County Airpark", "code": "2G2"},
+  {"name": "Seneca County Airport", "code": "16G"},
+  {"name": "Toledo Executive Airport", "code": "TDZ"},
+  {"name": "Wyandot County Airport", "code": "56D"},
+  {"name": "Grimes Field", "code": "I74"},
+  {"name": "Van Wert County Airport", "code": "VNW"},
+  {"name": "Darke County Airport", "code": "VES"},
+  {"name": "Wadsworth Municipal Airport", "code": "3G3"},
+  {"name": "Neil Armstrong Airport", "code": "AXV"},
+  {"name": "Warren Airport", "code": "62D"},
+  {"name": "Fayette County Airport", "code": "I23"},
+  {"name": "Fulton County Airport", "code": "USE"},
+  {"name": "Pike County Airport", "code": "EOP"},
+  {"name": "Alexander Salamon Airport", "code": "AMT"},
+  {"name": "Clinton Field", "code": "I66"},
+  {"name": "Monroe County Airport", "code": "4G5"},
+  {"name": "Wayne County Airport", "code": "BJJ"},
+  {"name": "Youngstown–Warren Regional Airport / Youngstown ARS", "code": "YNG"},
+  {"name": "Zanesville Municipal Airport", "code": "ZZV"},
+  {"name": "Ada Airport", "code": "0D7"},
+  {"name": "Mayfield Airport", "code": "1D4"},
+  {"name": "Miller Airport", "code": "4G3"},
+  {"name": "Miller Farm Landing Strip", "code": "7B4"},
+  {"name": "Beach City Airport", "code": "2D7"},
+  {"name": "Bordner Airport", "code": "3D8"},
+  {"name": "Noble County Airport", "code": "I10"},
+  {"name": "Parsons Airport", "code": "5D6"},
+  {"name": "Chapman Memorial Field", "code": "6CM"},
+  {"name": "Bandit Field Airdrome", "code": "5D9"},
+  {"name": "Columbia Airport", "code": "4G8"},
+  {"name": "Moraine Airpark", "code": "I73"},
+  {"name": "Dahio Trotwood Airport (Dayton-New Lebanon Airport)", "code": "I44"},
+  {"name": "Dayton-Phillipsburg Airport", "code": "3I7"},
+  {"name": "Deshler Municipal Landing Strip", "code": "6D7"},
+  {"name": "Elyria Airport", "code": "1G1"},
+  {"name": "Fremont Airport", "code": "14G"},
+  {"name": "Gates Airport", "code": "7D8"},
+  {"name": "Germack Airport", "code": "7D9"},
+  {"name": "Hinde Airport", "code": "88D"},
+  {"name": "Ruhe's Airport", "code": "R47"},
+  {"name": "Morgan County Airport", "code": "I71"},
+  {"name": "Middle Bass-East Point Airport", "code": "3W9"},
+  {"name": "Wynkoop Airport", "code": "6G4"},
+  {"name": "Elliot's Landing Airport", "code": "O74"},
+  {"name": "Braceville Airport", "code": "41N"},
+  {"name": "Concord Airpark", "code": "2G1"},
+  {"name": "Piqua Airport (Hartzell Field)", "code": "I17"},
+  {"name": "Packer Airport", "code": "5E9"},
+  {"name": "Alderman Airport", "code": "2P7"},
+  {"name": "Grand Lake St. Marys Seaplane Base", "code": "O12"},
+  {"name": "Salem Airpark", "code": "38D"},
+  {"name": "Koons Airport", "code": "8G8"},
+  {"name": "Tri-City Airport", "code": "3G6"},
+  {"name": "Shelby Community Airport", "code": "12G"},
+  {"name": "Eddie Dew Memorial Airpark", "code": "1G8"},
+  {"name": "Mad River Airpark", "code": "I54"},
+  {"name": "Waco Field", "code": "1WF"},
+  {"name": "Weller Airport", "code": "38I"},
+  {"name": "Weltzien Skypark", "code": "15G"},
+  {"name": "Ortner Airport (formerly Wakeman Airport)", "code": "I64"},
+  {"name": "Red Stewart Airfield", "code": "40I"},
+  {"name": "Tri-City Airport", "code": "80G"},
+  {"name": "Willard Municipal Airport", "code": "8G1"},
+  {"name": "Wilmington Air Park", "code": "ILN"},
+  {"name": "Hollister Field", "code": "2B6"},
+  {"name": "Youngstown Elser Metro Airport", "code": "4G4"},
+  {"name": "Lansdowne Airport", "code": "04G"},
+  {"name": "Parr Airport", "code": "42I"},
+  {"name": "Wright-Patterson Air Force Base", "code": "FFO"},
+  {"name": "Darby Dan Airport", "code": "75OA"},
+  {"name": "Far View Airport", "code": "OI41"},
+  {"name": "Troy Skypark", "code": "OH71"}
 ]
 const KEYWORDS = [
   // =============================================
   // 1. CORE OPERATORS (Fleet Owners & Charter)
   // =============================================
-  "air charter New Mexico",
-  "private jet charter New Mexico",
-  "executive aviation New Mexico",
-  "corporate aviation New Mexico",
-  "Part 135 operator New Mexico",
-  "air taxi New Mexico",
-  "air ambulance New Mexico",
-  "medevac New Mexico",
-  "cargo airline New Mexico",
-  "air freight New Mexico",
-  "aircraft management New Mexico",
-  "company aircraft New Mexico",
-  "on-demand charter New Mexico",
+  "air charter Ohio",
+  "private jet charter Ohio",
+  "executive aviation Ohio",
+  "corporate aviation Ohio",
+  "Part 135 operator Ohio",
+  "air taxi Ohio",
+  "air ambulance Ohio",
+  "medevac Ohio",
+  "cargo airline Ohio",
+  "air freight Ohio",
+  "aircraft management Ohio",
+  "company aircraft Ohio",
+  "on-demand charter Ohio",
 
-  // Specific Part 135 Operators in New Mexico [3†L4-L52]
-  "CSI Aviation Albuquerque", // Worldwide aviation services, Part 135 air carrier since 1979 [3†L4-L8][5†L37-L41]
-  "Vertical Limit Aviation Albuquerque", // Part 135 operator, 2 aircraft [3†L9-L13]
-  "Ed's Flying Service Alamogordo", // Part 135 operator, 1 aircraft [3†L14-L18]
-  "K & D Aviation Clovis", // Part 135 operator, 1 aircraft [3†L19-L23]
-  "Blue Sky Enterprises Las Cruces", // Part 135 operator, 2 aircraft [3†L24-L28]
-  "South Aero Inc Albuquerque", // Part 135 operator, 14 aircraft [3†L44-L48]
-  "Critical Air Response Enterprises Albuquerque", // Part 135 operator, 5 aircraft [3†L38-L43]
-  "Aero Charter and Transport Inc", // Part 135 operator [3†L30-L31]
-  "Biotech Aviation Rio Rancho", // Part 135 operator, 1 aircraft [3†L33-L37]
-  "Corvus LLC Texico", // Part 135 operator, 2 aircraft [3†L49-L52]
-  "IlluminaiRe Charter LLC Albuquerque", // Part 135 operator [3†L31-L32]
-  "Mountain Aviation Enterprises Albuquerque", // Nonscheduled air transportation since 2008 [5†L23-L27]
+  // Specific Part 135 Operators in Ohio [0†L4-L8][0†L41-L44][0†L9-L14][0†L15-L19][0†L20-L24][0†L25-L29][0†L30-L34][0†L35-L40]
+  "Grand Aire Inc Swanton", // FAR Part 135 and Part 121, Top 5 Air Charter providers in North America [0†L25-L29]
+  "Aitheras Aviation Group Cleveland", // Part 135 at Burke Lakefront Airport [0†L9-L14]
+  "Sky Quest LLC Cleveland", // Part 135, aircraft management, sales, acquisitions [0†L15-L19]
+  "Castle Aviation Inc Akron", // Part 135 at Akron-Canton Airport (CAK) [0†L20-L24]
+  "Priority Air Charter LLC Apple Creek", // Part 135 operator [0†L7][0†L43]
+  "Western Air Charter Inc", // Part 135 operator [0†L8]
+  "Blue Ash Charters LLC Miamisburg", // Part 135, fleet of 2 aircraft [0†L6][0†L45-L49]
+  "East West Helicopter LLC Harrison", // Part 135 helicopter operator, fleet of 4 aircraft [0†L30-L34]
+  "Southeastern Ohio Air Service Zanesville", // Part 135, fleet of 3 aircraft [0†L35-L40]
+  "AIRNET II LLC", // Part 135 operator [0†L5]
+  "AMERICAN WINDS INC.", // Part 135 operator [0†L6]
+  "Castle Aviation Inc North Canton", // Part 135 operator [0†L22-L24]
 
   // =============================================
   // 2. MAINTENANCE / MRO (Direct Parts Buyers)
   // =============================================
-  "aircraft maintenance New Mexico",
-  "aircraft repair station New Mexico",
-  "MRO New Mexico",
-  "Part 145 repair station New Mexico", // 26 FAA-certificated repair stations in NM [1†L32-L33]
-  "FAA certified repair station New Mexico",
-  "jet engine overhaul New Mexico",
-  "turbine engine repair New Mexico",
-  "avionics repair New Mexico",
-  "helicopter maintenance New Mexico",
-  "airframe maintenance New Mexico",
-  "composite repair New Mexico",
-  "aircraft painting New Mexico",
-  "aircraft interiors New Mexico",
-  "propeller repair New Mexico",
-  "AOG support New Mexico",
-  "line maintenance New Mexico",
+  "aircraft maintenance Ohio",
+  "aircraft repair station Ohio",
+  "MRO Ohio",
+  "Part 145 repair station Ohio", // 131 FAA-certificated repair stations in Ohio [1†L36-L37]
+  "FAA certified repair station Ohio",
+  "FAA Part 145 Ohio", // Airborne MRO, Lane Aviation, Toledo Jet Center, Ohio University [1†L9-L11][1†L13-L18][1†L19-L24][1†L31-L34]
+  "jet engine overhaul Ohio",
+  "turbine engine repair Ohio",
+  "avionics repair Ohio",
+  "helicopter maintenance Ohio",
+  "airframe maintenance Ohio",
+  "composite repair Ohio",
+  "aircraft painting Ohio",
+  "aircraft interiors Ohio",
+  "propeller repair Ohio",
+  "AOG support Ohio",
+  "line maintenance Ohio",
 
-  // Specific New Mexico MROs & Repair Stations [1†L4-L54]
-  "Roswell Air Center MRO", // Multiple MRO operations, commercial service center [1†L4-L9]
-  "Ascent Aviation Services New Mexico", // Major global MRO, 3 facilities in AZ/NM [1†L16-L20]
-  "Aero Mechanical Industries Rio Rancho", // Composite & mechanical airframe components MRO, 51-200 employees [1†L21-L24]
-  "Bode Aviation Albuquerque", // Veteran-owned, Part 145 repair station [1†L51-L54]
-  "10 Tanker Air Carrier LLC Albuquerque", // FAA Part 145 repair station [1†L35-L36]
-  "New Mexico Aero Service Moriarty", // Annual/progressive inspections, dynamic prop balancing, Twin Cessna/Beechcraft [1†L25-L30]
-  "Mesilla Valley Aircraft Owners Las Cruces", // Full-service MRO, 30+ years experience [1†L37-L43]
-  "Cutter Aviation Albuquerque", // Corporate/GA FBO and MRO since 1928 [5†L47-L51]
-  "Francis Aviation Las Cruces", // FBO and maintenance services [2†L12-L17]
-  "Southwest Aviation", // FBO with 50 years of service in Las Cruces [5†L7-L10]
+  // Specific Ohio MROs & Repair Stations [1†L4-L11][1†L12-L18][1†L19-L24][1†L25-L30][1†L31-L34][1†L40-L43]
+  "Airborne Maintenance & Engineering Services Wilmington", // Part 145, 315,000 sq ft hangar, 100,000 sq ft component facility [1†L4-L11]
+  "Airborne MRO Wilmington", // FAA/EASA certified Part 145, Airbus to Boeing platforms [1†L46-L49]
+  "Lane Aviation Columbus", // FAA Part 145 Repair Station, third-generation FBO since 1935 [1†L12-L18][2†L12-L16]
+  "Toledo Jet Center Toledo", // FAA/EASA Part 145, former Citation Service Center at KTOL [1†L19-L24]
+  "RTS Cincinnati", // FAA Part 145 repair station (authorized May 2026) [1†L25-L30]
+  "Ohio University Aircraft Services", // FAA Part 145 Certified Repair Station at Ohio University Airport [1†L31-L34]
+  "Ohio State University Airport Part 145", // FAA Part 145 Repair Station in Columbus [1†L40-L43]
+  "Achievement Aviation LLC Sidney", // FAA Part 145 repair station [1†L39]
+  "Great Lakes Turbines", // Component MRO specialist (acquired by Atlantic Jet Partners) [1†L50]
 
   // =============================================
   // 3. KEY AIRPORT-BASED TARGETING
   // =============================================
-  // Albuquerque International Sunport (ABQ) - Primary Hub [0†L11-L12][0†L25-L26]
-  "ABQ FBO",
-  "Albuquerque International Sunport FBO",
-  "KABQ aviation services",
-  "Cutter Aviation Albuquerque", // Corporate/GA gateway FBO since 1928 [5†L47-L51]
+  // Cleveland Hopkins International (CLE) - Primary Hub [4†L6][4†L12-L13]
+  "CLE FBO",
+  "Cleveland Hopkins International FBO",
+  "KCLE aviation services",
+  "Aitheras Aviation Cleveland", // Part 135 at Burke Lakefront [0†L9-L14]
 
-  // Santa Fe Regional (SAF) - Secondary Hub [2†L24-L28][2†L39-L44]
-  "Santa Fe Regional FBO",
-  "Atlantic Aviation Santa Fe", // Acquired Jet Center at Santa Fe, ~50,000 sq ft [2†L24-L30]
-  "Jet Center at Santa Fe", // Full-service FBO [2†L4-L7][2†L19-L23]
-  "KSAF FBO",
+  // John Glenn Columbus International (CMH) - Primary Hub [4†L7][4†L13]
+  "CMH FBO",
+  "John Glenn Columbus International FBO",
+  "Lane Aviation Columbus", // Third-generation FBO at KCMH [2†L12-L16]
+  "KCMH aviation services",
 
-  // Las Cruces International (LRU) - Southern Hub [1†L37-L43]
-  "Las Cruces International FBO",
-  "Francis Aviation Las Cruces", // Full-service FBO [2†L12-L17]
-  "Mesilla Valley Aircraft Owners Las Cruces", // Full-service MRO [1†L37-L43]
-  "KLRU FBO",
+  // Dayton International (DAY) - Primary Hub [4†L14]
+  "DAY FBO",
+  "Dayton International FBO",
+  "PremierFBO Dayton", // Full-service FBO at KDAY [2†L4-L10]
+  "Wright Bros. Aero Dayton", // Full-service FBO at KDAY since 1978 [2†L28-L33]
+  "KDAY aviation services",
 
-  // Roswell Air Center (ROW) - MRO Hub [1†L4-L9]
-  "Roswell Air Center FBO",
-  "KROW aviation services",
-  "Roswell MRO", // Multiple MRO operations [1†L4-L9]
+  // Akron-Canton Regional (CAK) - Primary Hub [4†L26][4†L32]
+  "CAK FBO",
+  "Akron-Canton Regional FBO",
+  "Castle Aviation CAK", // FBO and Part 135 at CAK [2†L35-L38][0†L20-L24]
+  "KCAK aviation services",
 
-  // Farmington / Four Corners (FMN) - Northwestern Hub
-  "Four Corners Regional FBO",
-  "Atlantic Aviation Farmington", // FBO at KFMN [2†L31-L34]
-  "KFMN FBO",
+  // Toledo Express (TOL) - Primary Hub [4†L8]
+  "TOL FBO",
+  "Toledo Express FBO",
+  "Toledo Jet Center TOL", // MRO at KTOL, former Citation Service Center [1†L19-L24]
+  "KTOL aviation services",
 
-  // Other Key Airports
-  "Hobbs Lea County FBO", // KHOB - Primary commercial [0†L26]
-  "Alamogordo-White Sands Regional FBO", // KALM - Primary commercial [0†L15]
-  "Clovis Municipal FBO", // KCVN - Primary commercial [3†L19-L23]
-  "Grants-Milan Municipal FBO", // KGNT - G.M. Aviation FBO [2†L8-L11]
-  "Deming Municipal FBO", // KDMN - Desert Aviation FBO [2†L35-L38]
-  "Moriarty Municipal FBO", // 0E0 - New Mexico Aero Service [0†L33-L34][1†L25-L30]
-  "Santa Teresa Airport FBO", // 5T6 - Francis Aviation location [2†L15-L17]
-  "Sandia Airpark Estates East FBO", // 1N1 - Sandia Airpark [2†L45-L48]
-  "Carrizozo Air Center FBO", // F37 [2†L49]
-  "Crownpoint Airport FBO", // 0E8 [0†L34]
-  "Questa Municipal Nr 2 FBO", // N24 [0†L6]
-  "Jicarilla Apache Nation Airport FBO", // 24N - Dulce [0†L7]
+  // Rickenbacker International (LCK) - Primary Hub [4†L8][5†L11]
+  "LCK FBO",
+  "Rickenbacker International FBO",
+  "Rickenbacker Aviation LCK", // NATA-certified FBO, 14th largest U.S. cargo airport [2†L45-L49]
+  "121st Air Refueling Wing LCK", // Ohio Air National Guard base [5†L11]
+  "KLCK aviation services",
+
+  // Other Key Airports [4†L11]
+  "Springfield-Beckley Municipal FBO", // KSGH - Electra Aero manufacturing site [3†L7-L8]
+  "Wilmington Air Park FBO", // KILN - Airborne MRO, Ohio ANG exercise site [1†L4-L8][5†L7]
+  "Youngstown-Warren Regional FBO", // KYNG - Commercial service [4†L19]
+  "Cincinnati/Northern Kentucky International FBO", // KCVG - Serves Cincinnati area [4†L45]
+  "Cincinnati Municipal Lunken FBO", // KLUK - Reliever airport
+  "Burke Lakefront Airport FBO", // KBKL - Cleveland, Aitheras Aviation base [0†L13-L14]
+  "Dayton-Wright Brothers Airport FBO", // KMGY - First Flight Aviation FBO [2†L18-L23]
+  "Zanesville Municipal FBO", // KZZV - Zanesville Aviation, SEO Air Service [2†L40-L44]
+  "Middletown Regional FBO", // KMWO - B&B Aero Services [2†L25-L28]
 
   // =============================================
   // 4. FBOs & GROUND SERVICES
   // =============================================
-  "FBO New Mexico",
-  "fixed base operator New Mexico",
-  "aircraft fueling New Mexico",
-  "jet fuel New Mexico",
-  "Avgas New Mexico",
-  "hangar rental New Mexico",
-  "hangar storage New Mexico",
-  "tie-down rental New Mexico",
-  "ground handling New Mexico",
-  "aircraft parking New Mexico",
-  "executive terminal New Mexico",
-  "deicing services New Mexico",
-  "aircraft detailing New Mexico",
-  "Atlantic Aviation New Mexico", // FBO network in NM [2†L24-L30][2†L31-L34]
-  "Cutter Aviation New Mexico", // FBO since 1928 [5†L47-L51]
-  "Francis Aviation New Mexico", // FBO in Las Cruces and Santa Teresa [2†L12-L17]
+  "FBO Ohio",
+  "fixed base operator Ohio",
+  "aircraft fueling Ohio",
+  "jet fuel Ohio",
+  "Avfuel Ohio", // Lane Aviation joined Avfuel network [2†L12-L14]
+  "hangar rental Ohio",
+  "hangar storage Ohio",
+  "tie-down rental Ohio",
+  "ground handling Ohio",
+  "aircraft parking Ohio",
+  "executive terminal Ohio",
+  "deicing services Ohio",
+  "aircraft detailing Ohio",
+  "PremierFBO Ohio", // FBO at Dayton [2†L4-L10]
+  "Lane Aviation Ohio", // FBO at Columbus since 1935 [2†L12-L16]
+  "Wright Bros. Aero Ohio", // FBO at Dayton since 1978 [2†L28-L33]
+  "Castle Aviation FBO", // FBO at Akron-Canton [2†L35-L38]
+  "First Flight Aviation Ohio", // FBO at Dayton-Wright Brothers [2†L18-L23]
 
   // =============================================
   // 5. HELICOPTER OPERATORS
   // =============================================
-  "helicopter tours New Mexico",
-  "helicopter charter New Mexico",
-  "helicopter maintenance New Mexico",
-  "helicopter operator New Mexico",
-  "Bell helicopter New Mexico",
-  "Robinson helicopter New Mexico",
-  "Airbus helicopter New Mexico",
-  "helicopter EMS New Mexico",
-  "helicopter utility New Mexico", // Utility operations common in remote areas
+  "helicopter tours Ohio",
+  "helicopter charter Ohio",
+  "helicopter maintenance Ohio",
+  "helicopter operator Ohio",
+  "Bell helicopter Ohio",
+  "Robinson helicopter Ohio",
+  "Airbus helicopter Ohio",
+  "helicopter EMS Ohio",
+  "East West Helicopter LLC Harrison", // Part 135 helicopter operator, fleet of 4 [0†L30-L34]
 
   // =============================================
   // 6. SPECIAL OPERATIONS
   // =============================================
-  "aerial surveying New Mexico",
-  "aerial photography New Mexico",
-  "aerial mapping New Mexico",
-  "search and rescue aviation New Mexico",
-  "law enforcement aviation New Mexico",
-  "aerial firefighting New Mexico",
-  "aerial application New Mexico",
-  "agricultural aviation New Mexico",
-  "aerial tours New Mexico",
-  "Spaceport America aviation", // Commercial spaceport [4†L8]
+  "aerial surveying Ohio",
+  "aerial photography Ohio",
+  "aerial mapping Ohio",
+  "search and rescue aviation Ohio",
+  "law enforcement aviation Ohio",
+  "aerial firefighting Ohio",
+  "aerial application Ohio",
+  "agricultural aviation Ohio",
+  "aerial tours Ohio",
 
   // =============================================
   // 7. FLIGHT SCHOOLS & INSTRUCTION
   // =============================================
-  "flight school New Mexico",
-  "pilot training New Mexico",
-  "Part 141 flight school New Mexico",
-  "helicopter flight training New Mexico",
-  "commercial pilot training New Mexico",
-  "aviation college New Mexico",
-  "flight instruction New Mexico",
+  "flight school Ohio",
+  "pilot training Ohio",
+  "Part 141 flight school Ohio",
+  "helicopter flight training Ohio",
+  "commercial pilot training Ohio",
+  "aviation college Ohio",
+  "Ohio State University flight school", // OSU Airport [1†L40-L43]
+  "Ohio University flight school", // Ohio University Airport [1†L31-L34]
+  "flight instruction Ohio",
 
   // =============================================
   // 8. AIRCRAFT TYPE SPECIFIC
   // =============================================
-  "King Air operator New Mexico", // Advanced Air operates King Air between Las Cruces and ABQ [5†L5-L6]
-  "Citation operator New Mexico",
-  "Phenom operator New Mexico",
-  "Caravan operator New Mexico",
-  "Gulfstream operator New Mexico",
-  "Challenger operator New Mexico",
-  "Cirrus operator New Mexico",
-  "Cessna operator New Mexico",
-  "Piper operator New Mexico",
-  "Twin Cessna maintenance New Mexico", // New Mexico Aero Service specializes in Twin Cessna [1†L28-L30]
-  "Beechcraft Bonanza maintenance New Mexico", // New Mexico Aero Service specializes in Bonanza [1†L29-L30]
+  "King Air operator Ohio",
+  "Citation operator Ohio",
+  "Phenom operator Ohio",
+  "Caravan operator Ohio",
+  "Gulfstream operator Ohio",
+  "Challenger operator Ohio",
+  "Cirrus operator Ohio",
+  "Cessna operator Ohio",
+  "Piper operator Ohio",
+  "Beechcraft operator Ohio", // Toledo Jet Center was Citation Service Center [1†L23]
+  "Embraer maintenance Ohio", // RTS Cincinnati authorized for Embraer [1†L26-L27]
+  "Airbus maintenance Ohio", // Airborne MRO services Airbus [1†L49]
+  "Boeing maintenance Ohio", // Airborne MRO services Boeing [1†L49]
+  "F-16 maintenance Ohio", // Ohio ANG 180th Fighter Wing operates F-16s [5†L29]
+  "KC-135 maintenance Ohio", // 121st Air Refueling Wing operates KC-135s [5†L25]
+  "C-130 maintenance Ohio", // Ohio ANG operates C-130s [5†L25]
 
   // =============================================
   // 9. CITY-SPECIFIC TARGETING
   // =============================================
-  "aviation Albuquerque",
-  "aviation Santa Fe",
-  "aviation Las Cruces",
-  "aviation Roswell",
-  "aviation Farmington",
-  "aviation Hobbs",
-  "aviation Alamogordo",
-  "aviation Clovis",
-  "aviation Carlsbad",
-  "aviation Gallup",
-  "aviation Taos",
-  "aviation Silver City",
-  "aviation Deming",
-  "aviation Grants",
-  "aviation Moriarty",
-  "aviation Rio Rancho", // Aero Mechanical Industries, Biotech Aviation [1†L21-L24][3†L33-L37]
-  "aviation Santa Teresa", // Francis Aviation [2†L15-L17]
-  "aviation Texico", // Corvus LLC [3†L49-L52]
+  "aviation Cleveland",
+  "aviation Columbus",
+  "aviation Cincinnati",
+  "aviation Dayton",
+  "aviation Akron",
+  "aviation Canton",
+  "aviation Toledo",
+  "aviation Youngstown",
+  "aviation Springfield", // Electra Aero manufacturing [3†L7-L8]
+  "aviation Wilmington", // Airborne MRO, Ohio ANG [1†L4-L8]
+  "aviation Mansfield", // Ohio ANG 179th Airlift Wing [5†L31]
+  "aviation Zanesville", // Southeastern Ohio Air Service [0†L35-L40]
+  "aviation Miamisburg", // Blue Ash Charters, First Flight Aviation [0†L46-L47]
+  "aviation Swanton", // Grand Aire Inc HQ [0†L25-L29]
+  "aviation North Canton", // Castle Aviation [0†L22-L24]
+  "aviation Apple Creek", // Priority Air Charter [0†L43]
+  "aviation Harrison", // East West Helicopter [0†L30-L34]
+  "aviation Sidney", // Achievement Aviation [1†L39]
 
   // =============================================
   // 10. MILITARY & GOVERNMENT AVIATION
   // =============================================
-  "military aviation contractor New Mexico",
-  "defense aerospace New Mexico",
-  "New Mexico Air National Guard",
-  "150th Special Operations Wing Kirtland AFB", // NM ANG unit [6†L36-L38]
-  "188th Rescue Squadron Kirtland AFB", // NM ANG rescue squadron [6†L22-L25]
-  "512th Rescue Squadron Kirtland AFB", // NM ANG rescue squadron [6†L22-L25]
-  "Kirtland Air Force Base", // Major AFB in Albuquerque [4†L8]
-  "Kirtland AFB maintenance",
-  "Holloman Air Force Base", // Alamogordo [0†L15]
-  "Holloman AFB maintenance",
-  "Cannon Air Force Base", // Clovis
-  "Cannon AFB contractor",
-  "White Sands Missile Range aviation",
-  "Sandia National Laboratories aviation", // Aerospace/defense research [4†L8]
-  "police aviation unit New Mexico",
-  "sheriff aviation New Mexico",
-  "state police aviation New Mexico",
-  "New Mexico Department of Transportation Aviation",
+  "military aviation contractor Ohio",
+  "defense aerospace Ohio",
+  "Ohio Air National Guard", // Second largest Air National Guard [5†L35]
+  "121st Air Refueling Wing Rickenbacker", // KC-135 Stratotanker [5†L11-L12]
+  "180th Fighter Wing Toledo", // F-16 Fighting Falcon [5†L29][5†L33]
+  "178th Wing Springfield", // Ohio ANG unit [5†L18]
+  "179th Airlift Wing Mansfield", // Ohio ANG unit [5†L31]
+  "Rickenbacker Air National Guard Base", // Columbus [5†L11]
+  "Toledo Express Air National Guard Base", // F-16 operations [5†L33-L34]
+  "Wilmington Air Park", // Ohio ANG exercise site [5†L7]
+  "Wright-Patterson Air Force Base", // Dayton, major Air Force research & development
+  "Wright-Patterson AFB maintenance",
+  "Naval Air Station Joint Reserve Base Toledo",
+  "police aviation unit Ohio",
+  "sheriff aviation Ohio",
+  "state police aviation Ohio",
+  "Ohio Department of Transportation Aviation", // ODOT Aviation [1†L39-L40]
 
   // =============================================
   // 11. AEROSPACE MANUFACTURING & SUPPLIERS
   // =============================================
-  "aerospace manufacturer New Mexico",
-  "aviation parts supplier New Mexico",
-  "aircraft component supplier New Mexico",
-  "OEM support New Mexico",
-  "composite manufacturing aviation New Mexico",
-  "machining aerospace New Mexico",
+  "aerospace manufacturer Ohio",
+  "aviation parts supplier Ohio",
+  "aircraft component supplier Ohio",
+  "OEM support Ohio",
+  "composite manufacturing aviation Ohio",
+  "machining aerospace Ohio",
   "aviation electronics manufacturer",
-  "defense contractor aerospace New Mexico",
-  "BlackVe Inc Albuquerque", // Satellite manufacturer, expanding with state backing [4†L4-L10]
-  "Castelion Corp Sandoval County", // Hypersonic missile manufacturing [4†L14-L16]
-  "AeroVironment Albuquerque", // Defense manufacturing, 400+ employees, $30M+ expansion [4†L35-L41]
-  "Eclipse Aerospace Albuquerque", // Aerospace company since 2009 [5†L11-L14]
-  "Century Aerospace Corporation Albuquerque", // Produces the Century Jet [5†L14-L16]
-  "AIRO Group Albuquerque", // Aerospace company since 2019 [5†L17-L22]
-  "Spaceport America", // Commercial spaceport infrastructure [4†L8]
+  "defense contractor aerospace Ohio",
+
+  // Specific Aerospace Manufacturers in Ohio [3†L4-L10][3†L22-L23]
+  "Electra Aero Springfield", // $850M investment, 1,975 jobs, EL9 Ultra Short hybrid-electric aircraft [3†L7-L8][3†L27-L29]
+  "Electra aircraft production Ohio", // Initial capacity 400 aircraft/year, expanding to 800 [3†L8-L9][3†L13-L14]
+  "GE Aerospace Ohio", // Major aerospace presence [3†L22]
+  "CTL Aerospace West Chester", // Aerospace manufacturing [3†L22]
+  "Beehive Ohio", // $70M investment, 200+ jobs in southwest Ohio [3†L9-L10]
+  "Airpark Ohio Springfield", // Electra facility location [3†L47]
+  "Wright-Patterson AFB aerospace", // Major research & development hub
+  "defense aerospace supply chain Ohio", // Southwest Ohio epicenter [3†L19-L20]
 ];
 
 const chunkArray = (arr, size) =>
